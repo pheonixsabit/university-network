@@ -1,0 +1,83 @@
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Serial0/0
+ ip address 10.128.7.2 255.255.255.252
+ clock rate 2000000
+!
+interface Serial1/0
+ ip address 10.128.7.5 255.255.255.252
+!
+interface GigabitEthernet4/0
+ ip address 10.128.5.1 255.255.255.0
+ ip helper-address 10.128.4.54
+ duplex auto
+ speed auto
+!
+router rip
+ version 2
+ network 10.0.0.0
+!
+ip classless
+ip route 10.128.0.0 255.255.252.0 Serial0/0 
+ip route 10.128.4.0 255.255.255.0 Serial1/0 
+ip route 10.128.6.0 255.255.255.128 Serial1/0 
+ip route 10.128.6.128 255.255.255.192 Serial1/0 
+ip route 10.128.6.192 255.255.255.192 Serial1/0 
+ip route 10.128.7.8 255.255.255.252 Serial1/0 
+ip route 10.128.7.12 255.255.255.252 Serial1/0 
+ip route 10.128.7.16 255.255.255.252 Serial1/0 
+ip route 10.128.7.20 255.255.255.252 Serial1/0 
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
